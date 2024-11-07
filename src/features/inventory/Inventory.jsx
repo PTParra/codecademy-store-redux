@@ -6,8 +6,12 @@ import {
 } from '../../utilities/utilities.js';
 import { addItem } from '../cart/cartSlice.js';
 import { loadData } from './inventorySlice.js';
+import { getFilteredItems } from '../../utilities/utilities.js';
 
-export const Inventory = ({ inventory, currencyFilter, dispatch }) => {
+export const Inventory = ({ inventory, searchTerm, currencyFilter, dispatch }) => {
+
+  const filteredInventory = getFilteredItems(inventory, searchTerm);
+
   const onMount = () => {
     dispatch(loadData());
   };
@@ -17,11 +21,11 @@ export const Inventory = ({ inventory, currencyFilter, dispatch }) => {
     dispatch(addItem(inventoryItem));
   };
 
-  if (inventory.length === 0) {
+  if (filteredInventory.length === 0) {
     return <p> Sorry, no products are currently available... </p>;
   }
 
-  return <ul id="inventory-container">{inventory.map(createInventoryItem)}</ul>;
+  return <ul id="inventory-container">{filteredInventory.map(createInventoryItem)}</ul>;
 
   function createInventoryItem(inventoryItem) {
     const { price, name, img } = inventoryItem;
