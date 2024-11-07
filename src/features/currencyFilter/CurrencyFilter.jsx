@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { inventoryData } from "../../data/data";
+import { currenciesData, inventoryData } from "../../data/data";
 import { setCurrency } from './currencyFilterSlice.js';
 
 export const CurrencyFilter = ({ currencyFilter, dispatch }) => {
